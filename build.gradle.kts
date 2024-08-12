@@ -34,7 +34,7 @@ dependencies {
     implementation("com.j256.ormlite:ormlite-jdbc:$ormliteVersion")
     implementation("ch.qos.logback:logback-classic:1.5.6")
     implementation("org.xerial:sqlite-jdbc:3.41.2.2")
-    implementation("mysql:mysql-connector-java:6.0.6")
+    implementation("mysql:mysql-connector-java:8.0.28")
 }
 
 tasks.test {

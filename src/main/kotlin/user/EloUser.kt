@@ -30,13 +30,41 @@ data class EloUser(
     )
 
     companion object {
-        fun create(user: Long): EloUser =
-            EloUser(
-                UUID.randomUUID(),
-                user,
-                LocalDateTime.now(),
-                0,
+        fun create(user: User): EloUser {
+            if (Database.userDao
+                    .queryBuilder()
+                    .where()
+                    .eq("user", user.idLong)
+                    .queryForFirst() != null
+            ) {
+                throw IllegalArgumentException("User already exists")
+            }
+            val eloUser =
+                EloUser(
+                    UUID.randomUUID(),
+                    user.idLong,
+                    LocalDateTime.now(),
+                    0,
+                )
+            Database.userDao.create(
+                eloUser,
             )
+            return eloUser
+        }
+
+        /**
+         * Gets the points of a user.
+         * @return The points of the user, or 0 if the user does not exist.
+         */
+        fun getPoints(user: User): Int {
+            val eloUser =
+                Database.userDao
+                    .queryBuilder()
+                    .where()
+                    .eq("user", user.idLong)
+                    .queryForFirst()
+            return eloUser?.points ?: 0
+        }
 
         fun setPoints(
             user: User,
@@ -48,7 +76,7 @@ data class EloUser(
                     .where()
                     .eq("user", user.idLong)
                     .queryForFirst()
-                    ?: create(user.idLong)
+                    ?: create(user)
             eloUser.points = points
             Database.userDao.update(eloUser)
         }
@@ -63,7 +91,7 @@ data class EloUser(
                     .where()
                     .eq("user", user.idLong)
                     .queryForFirst()
-                    ?: create(user.idLong)
+                    ?: create(user)
             eloUser.points -= points
             Database.userDao.update(eloUser)
         }
@@ -78,7 +106,7 @@ data class EloUser(
                     .where()
                     .eq("user", user.idLong)
                     .queryForFirst()
-                    ?: create(user.idLong)
+                    ?: create(user)
             eloUser.points += points
             Database.userDao.update(eloUser)
         }

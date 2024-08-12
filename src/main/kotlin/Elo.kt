@@ -1,11 +1,17 @@
 package net.refractored
 
+import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
+import net.dv8tion.jda.api.requests.GatewayIntent
+import net.refractored.commands.BotInfo
+import net.refractored.commands.GetElo
+import net.refractored.commands.SetElo
 import net.refractored.database.Database
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.spongepowered.configurate.CommentedConfigurationNode
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader
+import revxrsal.commands.jda.JDACommandHandler
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -18,6 +24,10 @@ class Elo {
     val config: CommentedConfigurationNode
 
     val dataFolder = File(Paths.get("").toAbsolutePath().toString())
+
+    val commandHandler: JDACommandHandler
+
+    val jda: JDA
 
     init {
         instance = this
@@ -36,9 +46,21 @@ class Elo {
                 .build()
         config = configLoader.load()
         Database.init()
+        jda =
+            JDABuilder
+                .createDefault(
+                    config.node("Discord", "token").string,
+                    GatewayIntent.GUILD_MESSAGES,
+                    GatewayIntent.MESSAGE_CONTENT,
+                    GatewayIntent.GUILD_MEMBERS,
+                ).build()
+        commandHandler = JDACommandHandler.create(instance.jda)
+        commandHandler.unregisterAllCommands()
+        commandHandler.register(SetElo())
+        commandHandler.register(GetElo())
+        commandHandler.register(BotInfo())
+        commandHandler.registerSlashCommands()
     }
-
-    val jda = JDABuilder.createDefault(config.node("Discord", "token").string).build()
 
     companion object {
         @JvmStatic
