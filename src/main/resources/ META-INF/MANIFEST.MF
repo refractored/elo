@@ -1,1 +1,1 @@
-Main-Class: net.refractored.MainKt
+Main-Class: net.refractored.Elo

@@ -10,6 +10,8 @@ version = "1.0-SNAPSHOT"
 
 val jdaVersion = "5.0.2"
 val lampVersion = "3.2.1"
+val ormliteVersion = "6.1"
+val configurateVersion = "4.1.2"
 
 repositories {
     mavenCentral()
@@ -17,16 +19,19 @@ repositories {
 }
 
 application {
-    mainClass.set("$group.MainKt")
+    mainClass.set("$group.Elo")
 }
 
 dependencies {
     implementation("net.dv8tion:JDA:$jdaVersion")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("club.minnced:jda-ktx:0.12.0")
-    implementation("org.spongepowered:configurate-yaml:4.1.2")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("org.spongepowered:configurate-yaml:$configurateVersion")
+    implementation("org.spongepowered:configurate-extra-kotlin:$configurateVersion")
     implementation("com.github.Revxrsal.Lamp:common:$lampVersion")
     implementation("com.github.Revxrsal.Lamp:jda:$lampVersion")
+    implementation("com.j256.ormlite:ormlite-core:$ormliteVersion")
+    implementation("com.j256.ormlite:ormlite-jdbc:$ormliteVersion")
 }
 
 tasks.test {
