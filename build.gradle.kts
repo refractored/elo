@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "net.refractored"
-version = "1.0-SNAPSHOT"
+version = "0.1"
 
 val jdaVersion = "5.0.2"
 val lampVersion = "3.2.1"
@@ -33,6 +33,8 @@ dependencies {
     implementation("com.j256.ormlite:ormlite-core:$ormliteVersion")
     implementation("com.j256.ormlite:ormlite-jdbc:$ormliteVersion")
     implementation("ch.qos.logback:logback-classic:1.5.6")
+    implementation("org.xerial:sqlite-jdbc:3.41.2.2")
+    implementation("mysql:mysql-connector-java:6.0.6")
 }
 
 tasks.test {
