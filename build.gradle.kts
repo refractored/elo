@@ -32,6 +32,7 @@ dependencies {
     implementation("com.github.Revxrsal.Lamp:jda:$lampVersion")
     implementation("com.j256.ormlite:ormlite-core:$ormliteVersion")
     implementation("com.j256.ormlite:ormlite-jdbc:$ormliteVersion")
+    implementation("ch.qos.logback:logback-classic:1.5.6")
 }
 
 tasks.test {

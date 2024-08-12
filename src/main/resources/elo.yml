@@ -9,3 +9,5 @@ Database:
   url: "jdbc:mysql://DATABASE_IP:PORT/DATABASE_NAME"
   user: "USERNAME"
   password: "PASSWORD"
+Discord:
+  token: ""
