@@ -66,6 +66,11 @@ data class EloUser(
             return eloUser?.points ?: 0
         }
 
+        /**
+         * Sets the points of a user.
+         * @param user The user to set the points for.
+         * @param points The points to set.
+         */
         fun setPoints(
             user: User,
             points: Int,
@@ -81,6 +86,11 @@ data class EloUser(
             Database.userDao.update(eloUser)
         }
 
+        /**
+         * Removes points from a user.
+         * @param user The user to remove points from.
+         * @param points The points to remove.
+         */
         fun removePoints(
             user: User,
             points: Int,
@@ -96,6 +106,11 @@ data class EloUser(
             Database.userDao.update(eloUser)
         }
 
+        /**
+         * Adds points to a user.
+         * @param user The user to add points to.
+         * @param points The points to add.
+         */
         fun addPoints(
             user: User,
             points: Int,

@@ -8,9 +8,9 @@ import revxrsal.commands.annotation.Description
 import revxrsal.commands.jda.actor.SlashCommandJDAActor
 import revxrsal.commands.jda.annotation.OptionData
 
-class SetElo {
-    @Description("Sets the user's elo.")
-    @Command("elo set")
+class AddElo {
+    @Description("Adds elo to a user.")
+    @Command("elo add")
     fun setEloCommand(
         actor: SlashCommandJDAActor,
         @OptionData(
@@ -21,10 +21,11 @@ class SetElo {
         @OptionData(
             value = OptionType.INTEGER,
             name = "value",
-            description = "What to set the points to?",
+            description = "How many points to add?",
         ) points: Int,
     ) {
-        EloUser.setPoints(user, points)
+        EloUser.addPoints(user, points)
+        actor.reply("")
         actor.slashEvent
             .reply("Set $points points for ${user.asTag}")
             .setEphemeral(true)

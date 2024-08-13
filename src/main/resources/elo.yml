@@ -11,3 +11,14 @@ Database:
   password: "PASSWORD"
 Discord:
   token: ""
+  # Owner can start and stop the bot.
+  owner:
+    - "OWNER_ID"
+  # Roles that can manage other players elo.
+  eloRoles:
+    - "ROLE_ID"
+  # Can players with the elo role manage their own elo?
+  # Bot owner can always manage their own elo.
+  manageOwnElo: true
+  # Hexadecimal color for embeds.
+  embedColor: "#00ff00"

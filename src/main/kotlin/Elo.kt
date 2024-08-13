@@ -3,9 +3,7 @@ package net.refractored
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.requests.GatewayIntent
-import net.refractored.commands.BotInfo
-import net.refractored.commands.GetElo
-import net.refractored.commands.SetElo
+import net.refractored.commands.*
 import net.refractored.database.Database
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -58,6 +56,8 @@ class Elo {
         commandHandler.unregisterAllCommands()
         commandHandler.register(SetElo())
         commandHandler.register(GetElo())
+        commandHandler.register(AddElo())
+        commandHandler.register(RemoveElo())
         commandHandler.register(BotInfo())
         commandHandler.registerSlashCommands()
     }
