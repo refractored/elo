@@ -21,7 +21,7 @@ class Elo {
 
     val config: CommentedConfigurationNode
 
-    val dataFolder = File(Paths.get("").toAbsolutePath().toString())
+    val dataFolder: File
 
     val commandHandler: JDACommandHandler
 
@@ -29,18 +29,30 @@ class Elo {
 
     init {
         instance = this
+        val directoryPath = "elo"
+        val directory = File(directoryPath)
+        if (!(directory.exists() && directory.isDirectory)) {
+            directory.mkdirs()
+        }
+        dataFolder =
+            File(
+                Paths
+                    .get("elo")
+                    .toAbsolutePath()
+                    .toString(),
+            )
         if (!File(dataFolder, "elo.yml").exists()) {
             javaClass.getResourceAsStream("/elo.yml")?.let {
                 Files.copy(
                     it,
-                    Paths.get("elo.yml"),
+                    dataFolder.toPath().resolve("elo.yml"),
                 )
             }
         }
         configLoader =
             YamlConfigurationLoader
                 .builder()
-                .path(Paths.get("elo.yml"))
+                .path(dataFolder.toPath().resolve("elo.yml"))
                 .build()
         config = configLoader.load()
         Database.init()
